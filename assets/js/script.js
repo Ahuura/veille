@@ -1,3 +1,26 @@
+//fonction pour la navbar
+function myFunction() {
+    var x = document.getElementById("myLinks");
+    if (x.style.display === "block") {
+      x.style.display = "none";
+    } else {
+      x.style.display = "block";
+    }
+  } 
+var navbar =
+    '<div class="topnav">' +
+      '<a href="index.html" class="active">Veille Technologique</a>' +
+      '<div id="myLinks">' +
+        '<a href="index.html">Accueil</a>' +
+      '</div>' +
+      '<a href="javascript:void(0);" class="icon" onclick="myFunction()">' +
+        '<i class="fa fa-bars"></i>' +
+      '</a>' +
+    '</div>' ;
+$("#navbar").append(navbar)
+
+
+
 //récupération donnée airtable
 var Airtable = require('airtable');
 Airtable.configure({
@@ -9,38 +32,42 @@ var base = Airtable.base('appk4MJHsoLhECKyi');
 
 
 function initAirtable() {
-
     base('Veille').select({
-        // Selecting the first 3 records in Grid view:
-        maxRecords: 300000,
+           maxRecords: 300000,
         view: "Grid view"
     }).eachPage(function page(records, fetchNextPage) {
-        // This function (`page`) will get called for each page of records.
-
-        records.forEach(function(record) {
-            // console.log('Retrieved', record.get('Date'));
-
+                records.forEach(function (record) {
             //template pour la liste des veilles
             var liste =
-                '<div class=" row">' +
-                '<div class=" col-1">' +
-                '<div class="label" data-id="###veilleId###" >Sujet : </div>' +
+                '<div class=" row listage mt-2" data-id="###veilleId###">' +
+                '<div class=" col">' +
+                '<div class=" image" >' +
+                '<img class="label" id="imgListe" src="###imgListe###"  ><br>' +
                 '</div>' +
-                '<div class=" col-9">' +
+                '</div>' +
+                '<div class=" col">' +
+                '<div class="date">###date###</div>' +
+                '</div>' +
+                '<div class=" col">' +
                 '<div class="sujet">###sujet###</div>' +
                 '</div>' +
-                '<div class=" col-2">' +
+                '<div class=" col">' +
                 '<div class="detail">' +
-                '<button onclick="setStorage(\'###veilleId###\')" class="btn btn-danger"> Plus de détail ici</button>' +
+                '<button onclick="setStorage(\'###veilleId###\')" class="btn btn-dark   "> Plus de détail ici</button>' +
                 '</div>' +
                 '</div>' +
                 '</div>' +
                 '<br>';
-
+                
+            var img1 = record.get("Image")
+            img1 = img1[0].url
+                
             var allListe = "";
             allListe = liste.replace("###sujet###", record.get("Sujet"));
-            // allListe = allListe.replace(/###veilleId###/gi, record.getId());
+            allListe = allListe.replace("###date###", record.get("Date"));
+            allListe = allListe.replace("###imgListe###", img1);
             allListe = allListe.replace(/###veilleId###/gi, record.id);
+           
             $("#liste").append(allListe);
 
         });
@@ -55,10 +82,7 @@ function initAirtable() {
 }
 initAirtable()
 
-var date = "2020-01-17";
-date = date.split('-');
-date = date.reverse();
-date = date.join('-');
+
 
 //
 function setStorage(index) {

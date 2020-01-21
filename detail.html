@@ -8,19 +8,23 @@
     <title>Veille</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-
+    <!--navbar-->
+    <div class="container" id="navbar"></div>
+    <!--fin navbar-->
     <h1>Ma Veille du jour:</h1>
-    <div class="container" id="detail">
-        <div class=" row">
-            <div class=" col">
-                <div id="img"></div>
+    <div class="container-fluid">
+        <div class="row" id="detail">
+            <div class="col-4" id="img">
+                <img src="" alt="">
             </div>
-            <div class=" col" id="text">
+            <div class="col-8" id="text">
+                <div class="detail btn return">
+                    <a class="btn btn-dark" href="index.html">Retour</a>
+                </div>
                 <div class="date"> Date :</div>
                 <div id="date"></div><br>
                 <div class="sujet">Sujet :</div>
@@ -30,13 +34,14 @@
                 <div class="commentaire">Commentaire :</div>
                 <div id="commentaire"></div><br>
                 <div class="lien">Lien :</div>
-                <div id="lien"></div><br>
+                <a href="" id="lien"></a><br>
                 <div class="detail btn">
-                    <a class="btn btn-danger" href="index.html">Retour</a>
+                    <a class="btn btn-dark" href="index.html">Retour</a>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="assets/js/jquery-3.4.1.min.js"></script>
     <script src="assets/js/popper.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>

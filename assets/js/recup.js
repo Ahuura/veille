@@ -12,8 +12,14 @@ $(document).ready(function(){
 function afficherVeille(veilleId){
         
     base('Veille').find(veilleId, function(err, record) {
-       
-        //$("#img").html(record.get(""));
+        var date = record.get("Date");
+        date = date.split('-');
+        date = date.reverse();
+        date = date.join('-');
+        var img = record.get("Image")
+        img = img[0].url
+
+        $("#img").find("img").attr("src",img);
         $("#date").html(record.get("Date"));
         $("#sujet").html(record.get("Sujet"));
         $("#synthese").html(record.get("Synthèse"));
